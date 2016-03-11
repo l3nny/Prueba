@@ -1,0 +1,4 @@
+<resources>
+    <bool name="landscape_only">false</bool>
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+</resources>
