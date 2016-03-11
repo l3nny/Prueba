@@ -54,7 +54,7 @@ public class Categoria extends Activity {
 
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (connectivity != null) {
+        if (connectivity.getAllNetworks().length != 0) {
             base.eliminarTodo();
             new Attempt(apps).execute();
         } else if (base.TablaVacia() == false) {
@@ -62,6 +62,8 @@ public class Categoria extends Activity {
         } else {
             showAlertDialog(Categoria.this, "Conexion a Internet",
                     "Tu Dispositivo no tiene Conexion a Internet.", false);
+
+            finish();
 
         }
         apps = (AbsListView) findViewById(R.id.list);
