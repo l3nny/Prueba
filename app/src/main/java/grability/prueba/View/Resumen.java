@@ -27,9 +27,9 @@ public class Resumen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen);
 
-        if(getResources().getBoolean(R.bool.landscape_only)){
+        if (getResources().getBoolean(R.bool.landscape_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }else{
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
 
@@ -50,10 +50,10 @@ public class Resumen extends Activity {
         resumen.setText(f.get(0).getSummary().toString());
 
         ImageView imageView = (ImageView) findViewById(R.id.imagen);
-        imageView.setImageBitmap(redimensionarImagenMaximo(imagen,500,500));
+        imageView.setImageBitmap(redimensionarImagenMaximo(imagen, 500, 500));
     }
 
-    public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth){
+    public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth) {
 
         int width = mBitmap.getWidth();
         int height = mBitmap.getHeight();

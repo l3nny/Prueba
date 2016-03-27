@@ -23,9 +23,9 @@ public class Listado extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado);
 
-        if(getResources().getBoolean(R.bool.landscape_only)== true){
+        if (getResources().getBoolean(R.bool.landscape_only) == true) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }else{
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
 
@@ -44,7 +44,7 @@ public class Listado extends Activity {
         Bitmap bitmap;
 
         try {
-            for(int i=0;i<stringList.size();i++){
+            for (int i = 0; i < stringList.size(); i++) {
                 img = stringList.get(i).getImage();
                 bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
 
@@ -59,7 +59,6 @@ public class Listado extends Activity {
             e.printStackTrace();
         }
     }
-
 
 
 }

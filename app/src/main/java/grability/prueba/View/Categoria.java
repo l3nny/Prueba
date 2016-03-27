@@ -50,12 +50,11 @@ public class Categoria extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria);
-        if(getResources().getBoolean(R.bool.landscape_only)){
+        if (getResources().getBoolean(R.bool.landscape_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }else{
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-
 
 
         base = new DB(this);
@@ -63,7 +62,7 @@ public class Categoria extends Activity {
 
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (connectivity.getAllNetworks().length != 0) {
+        if (connectivity.getAllNetworks().length > 1) {
             base.eliminarTodo();
             new Attempt(apps).execute();
         } else if (base.TablaVacia() == false) {
@@ -145,7 +144,6 @@ public class Categoria extends Activity {
                         byte[] bitmapdata = blob.toByteArray();
 
 
-
                         base.insertApps(Nombre, Categoria, Resumen, UrlImage, bitmapdata);
 
 
@@ -220,7 +218,9 @@ public class Categoria extends Activity {
 
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                finish();
             }
+
         });
 
         alertDialog.show();
