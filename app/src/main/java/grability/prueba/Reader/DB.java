@@ -100,14 +100,14 @@ public class DB {
         ArrayList<Feader> ff = new ArrayList<Feader>();
 
         try {
-            Cursor cursor = DB.rawQuery("SELECT urlImage, image FROM apps WHERE category ='" + Category + "'", null);
+            Cursor cursor = DB.rawQuery("SELECT name, urlImage, image FROM apps WHERE category ='" + Category + "'", null);
 
             if (cursor.moveToFirst()) {
                 do {
 
-
-                    f.setURLimage(cursor.getString(0));
-                    f.setImage(cursor.getBlob(1));
+                    f.setName(cursor.getString(0));
+                    f.setURLimage(cursor.getString(1));
+                    f.setImage(cursor.getBlob(2));
 
                     ff.add(f);
                     f = new Feader();

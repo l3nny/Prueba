@@ -6,10 +6,12 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -34,11 +36,19 @@ public class Tabla {
         filas = new ArrayList<TableRow>();
     }
 
-    public void agregarFilaTablabo() {
+    public void agregarFilaTablabo(ArrayList<String> name) {
         TableRow.LayoutParams layoutCelda;
         TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow fila = new TableRow(actividad);
         fila.setLayoutParams(layoutFila);
+
+        for (int i = 0; i < name.size(); i++) {
+            final TextView name1 = new TextView(actividad);
+            name1.setGravity(Gravity.CENTER);
+            name1.setText(name.get(i));
+            name1.setPadding(50, 20, 5, 20);
+            fila.addView(name1);
+        }
 
 
         tabla.addView(fila);
@@ -58,6 +68,7 @@ public class Tabla {
 
         for (int i = 0; i < elementos.size(); i++) {
             final ImageButton img = new ImageButton(actividad);
+
             a++;
 
             final String Url = url.get(i);
@@ -68,7 +79,7 @@ public class Tabla {
             final int id_ = img.getId();
             img.setImageBitmap(redimensionarImagenMaximo(elementos.get(i), 300, 300));
             img.setBackgroundColor(Color.TRANSPARENT);
-            img.setPadding(20, 20, 20, 20);
+            img.setPadding(5, 20, 5, 20);
             fila.addView(img);
             img.setId(id_);
 
