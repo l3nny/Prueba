@@ -1,4 +1,4 @@
-package Reader;
+package grability.prueba.Reader;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,7 +10,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private static SQLiteHelper mOpenHelper = null;
     private static final String DATABASE_NAME = "BASE";
     private static final int DATABASE_VERSION = 1;
-    private final String sqlCreate1 = "CREATE TABLE apps (name TEXT, category TEXT, summary TEXT, urlImage TEXT)";
+    private final String sqlCreate1 = "CREATE TABLE apps (name TEXT, category TEXT, summary TEXT, urlImage TEXT, image BLOB)";
 
 
     public static SQLiteHelper getInstance(Context context) {

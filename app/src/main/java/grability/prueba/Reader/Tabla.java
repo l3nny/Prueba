@@ -1,4 +1,4 @@
-package Reader;
+package grability.prueba.Reader;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 
 import grability.prueba.R;
-import grability.prueba.Resumen;
+import grability.prueba.View.Resumen;
 
 public class Tabla {
 
@@ -24,7 +24,7 @@ public class Tabla {
     private Activity actividad;
     private Resources rs;
     private int FILAS, COLUMNAS;
-    DB base;
+    //DB base;
 
     public Tabla(Activity actividad, TableLayout tabla) {
         this.actividad = actividad;

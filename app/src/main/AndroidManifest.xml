@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,19 +12,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash">
+        <activity android:name=".View.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Categoria" />
+        <activity android:name=".View.Categoria" />
         <activity
-            android:name=".Listado"
+            android:name=".View.Listado"
             android:label="@string/title_activity_listado"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Resumen"></activity>
+        <activity android:name=".View.Resumen"></activity>
     </application>
 
 </manifest>

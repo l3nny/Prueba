@@ -1,9 +1,12 @@
-package Reader;
+package grability.prueba.Reader;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ public class DB {
 
     private SQLiteDatabase DB;
     private SQLiteHelper dbHelper;
-    Feader f;
+
 
 
     public DB(Context context) {
@@ -27,16 +30,24 @@ public class DB {
         dbHelper.close();
     }
 
-    public void insertApps(String w, String d, String f, String h) {
+    public void insertApps(String w, String d, String f, String h, byte[] i) {
 
         try {
+            ContentValues cv = new ContentValues();
+            cv.put("name",w);
+            cv.put("category",d);
+            cv.put("summary",f);
+            cv.put("urlImage",h);
+            cv.put("image",i);
+            DB.insert("apps",null,cv);
 
-            DB.execSQL("INSERT INTO \"apps\" (\"name\", \"category\", \"summary\", \"urlImage\") VALUES ('" + w + "', '" + d + "','" + f + "','" + h + "')");
         } catch (SQLiteException e) {
             e.printStackTrace();
         }
 
     }
+
+
 
     public void eliminarTodo() {
         try {
@@ -88,22 +99,37 @@ public class DB {
 
     }
 
-    public ArrayList<String> ListaIMG(String Category) {
+    public ArrayList<Feader> ListaIMG(String Category) {
+        Feader f=new Feader();
+        ArrayList<Feader> ff= new ArrayList<Feader>();
 
-
-        Cursor cursor = DB.rawQuery("SELECT urlImage FROM apps WHERE category ='" + Category + "'", null);
-
-        ArrayList<String> lista = new ArrayList<String>();
-
+        try {
+        Cursor cursor = DB.rawQuery("SELECT urlImage, image FROM apps WHERE category ='" + Category + "'", null);
 
         if (cursor.moveToFirst()) {
             do {
-                lista.add(cursor.getString(0));
+
+
+
+                f.setURLimage(cursor.getString(0));
+                f.setImage(cursor.getBlob(1));
+
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(f.getImage(), 0, f.getImage().length);
+                bitmap.getHeight();
+                ff.add(f);
+                f=new Feader();
+
+
             } while (cursor.moveToNext());
         }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return lista;
 
+
+        return ff;
     }
 
 

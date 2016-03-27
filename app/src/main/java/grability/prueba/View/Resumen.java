@@ -1,4 +1,4 @@
-package grability.prueba;
+package grability.prueba.View;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Reader.DB;
-import Reader.Feader;
-import Reader.Tabla;
+import grability.prueba.Reader.DB;
+import grability.prueba.Reader.Feader;
+import grability.prueba.Reader.Tabla;
+import grability.prueba.R;
 
 public class Resumen extends Activity {
 

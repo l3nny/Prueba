@@ -1,10 +1,12 @@
-package grability.prueba;
+package grability.prueba.View;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
+
+import grability.prueba.R;
 
 public class Splash extends Activity {
     private static int SPLASH_TIME_OUT = 3000;

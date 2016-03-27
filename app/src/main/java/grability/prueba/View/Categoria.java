@@ -1,4 +1,4 @@
-package grability.prueba;
+package grability.prueba.View;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,9 +24,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Reader.DB;
-import Reader.Feader;
-import Reader.JSONParser;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import grability.prueba.Reader.DB;
+import grability.prueba.Reader.Feader;
+import grability.prueba.Reader.JSONParser;
+import grability.prueba.R;
 
 public class Categoria extends Activity {
 
@@ -62,9 +71,6 @@ public class Categoria extends Activity {
         } else {
             showAlertDialog(Categoria.this, "Conexion a Internet",
                     "Tu Dispositivo no tiene Conexion a Internet.", false);
-
-            finish();
-
         }
         apps = (AbsListView) findViewById(R.id.list);
 
@@ -105,7 +111,8 @@ public class Categoria extends Activity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
+            InputStream is = null;
+            Bitmap bm = null;
             JSONParser sh = new JSONParser();
             String jsonStr = sh.makeServiceCall(Url, JSONParser.GET);
 
@@ -131,7 +138,16 @@ public class Categoria extends Activity {
                         JSONObject attributes = category.getJSONObject("attributes");
                         String Categoria = attributes.getString("term");
 
-                        base.insertApps(Nombre, Categoria, Resumen, UrlImage);
+                        is = (InputStream) new URL(UrlImage).getContent();
+                        bm = BitmapFactory.decodeStream(is);
+                        ByteArrayOutputStream blob = new ByteArrayOutputStream();
+                        bm.compress(Bitmap.CompressFormat.PNG, 100 /*ignored for PNG*/, blob);
+                        byte[] bitmapdata = blob.toByteArray();
+
+
+
+                        base.insertApps(Nombre, Categoria, Resumen, UrlImage, bitmapdata);
+
 
                     }
 
@@ -139,11 +155,16 @@ public class Categoria extends Activity {
                     e.printStackTrace();
                 } catch (SQLiteException e) {
                     e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } else {
                 Log.e("", "Problemas para cargar el JSON");
 
             }
+
             return null;
         }
 

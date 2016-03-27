@@ -1,13 +1,14 @@
-package Reader;
-
-import android.graphics.Bitmap;
+package grability.prueba.Reader;
 
 public class Feader {
     String Name;
     String Category;
     String Summary;
     private String URLimage;
-    public Bitmap image;
+    public byte[] image;
+
+    public Feader() {
+    }
 
     public Feader(String name, String summary) {
         Name = name;
@@ -51,11 +52,11 @@ public class Feader {
         this.URLimage = URLimage;
     }
 
-    public Bitmap getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
