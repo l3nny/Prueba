@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,9 +32,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import grability.prueba.DateBase.DB;
+import grability.prueba.R;
 import grability.prueba.Reader.Feader;
 import grability.prueba.Reader.JSONParser;
-import grability.prueba.R;
 
 public class Category extends Activity {
 
@@ -60,9 +61,8 @@ public class Category extends Activity {
         base = new DB(this);
         base.open();
 
-        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (connectivity.getAllNetworks().length > 1) {
+        if (isConnectingToInternet() == true) {
             base.deleteAll();
             new Attempt(apps).execute();
         } else if (base.emptyTable() == false) {
@@ -224,5 +224,20 @@ public class Category extends Activity {
         });
 
         alertDialog.show();
+    }
+
+    public boolean isConnectingToInternet() {
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            @SuppressWarnings("deprecation")
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+        }
+        return false;
+
     }
 }
