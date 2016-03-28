@@ -1,4 +1,4 @@
-package grability.prueba.Reader;
+package grability.prueba.DateBase;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import grability.prueba.Reader.Feader;
 
 public class DB {
 
@@ -38,6 +40,7 @@ public class DB {
             cv.put("image", i);
             DB.insert("apps", null, cv);
 
+
         } catch (SQLiteException e) {
             e.printStackTrace();
         }
@@ -45,15 +48,15 @@ public class DB {
     }
 
 
-    public void eliminarTodo() {
+    public void deleteAll() {
         try {
-            DB.execSQL("DELETE FROM \"apps\"");
+            DB.delete("apps", null, null);
         } catch (SQLiteException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean TablaVacia() {
+    public boolean emptyTable() {
         boolean r = false;
         Cursor result = DB.rawQuery("SELECT COUNT(*) FROM apps", null);
         if (result != null) {
@@ -68,24 +71,24 @@ public class DB {
     }
 
 
-    public Feader[] ListaCategorias() {
+    public Feader[] listCategory() {
 
 
         Cursor cursor = DB.rawQuery("SELECT category FROM apps GROUP BY category HAVING (COUNT(*) >= 1)", null);
 
-        List<Feader> lista = new ArrayList<Feader>();
+        List<Feader> list = new ArrayList<Feader>();
 
 
         if (cursor.moveToFirst()) {
             do {
-                lista.add(new Feader(cursor.getString(0)));
+                list.add(new Feader(cursor.getString(0)));
             } while (cursor.moveToNext());
         }
-        Feader apps[] = new Feader[lista.size()];
+        Feader apps[] = new Feader[list.size()];
         try {
-            for (int i = 0; i < lista.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
 
-                apps[i] = ((Feader) lista.get(i));
+                apps[i] = ((Feader) list.get(i));
 
             }
         } catch (Exception e) {
@@ -124,22 +127,22 @@ public class DB {
     }
 
 
-    public ArrayList<Feader> informacion(String info) {
+    public ArrayList<Feader> information(String info) {
 
         Cursor cursor = DB.rawQuery("SELECT name, summary FROM apps WHERE urlImage ='" + info + "'", null);
 
-        ArrayList<Feader> lista = new ArrayList<Feader>();
+        ArrayList<Feader> list = new ArrayList<Feader>();
 
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    lista.add(new Feader(cursor.getString(0), cursor.getString(1)));
+                    list.add(new Feader(cursor.getString(0), cursor.getString(1)));
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lista;
+        return list;
     }
 
 }

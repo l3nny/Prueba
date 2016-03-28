@@ -30,14 +30,14 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import grability.prueba.Reader.DB;
+import grability.prueba.DateBase.DB;
 import grability.prueba.Reader.Feader;
 import grability.prueba.Reader.JSONParser;
 import grability.prueba.R;
 
-public class Categoria extends Activity {
+public class Category extends Activity {
 
-    private ImageButton actualizar;
+    private ImageButton update;
     AbsListView apps;
     ArrayAdapter<Feader> adaptador;
 
@@ -49,7 +49,7 @@ public class Categoria extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categoria);
+        setContentView(R.layout.activity_category);
         if (getResources().getBoolean(R.bool.landscape_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         } else {
@@ -63,12 +63,12 @@ public class Categoria extends Activity {
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (connectivity.getAllNetworks().length > 1) {
-            base.eliminarTodo();
+            base.deleteAll();
             new Attempt(apps).execute();
-        } else if (base.TablaVacia() == false) {
+        } else if (base.emptyTable() == false) {
             new CargarListTask().execute();
         } else {
-            showAlertDialog(Categoria.this, "Conexion a Internet",
+            showAlertDialog(Category.this, "Conexion a Internet",
                     "Tu Dispositivo no tiene Conexion a Internet.", false);
         }
         apps = (AbsListView) findViewById(R.id.list);
@@ -79,7 +79,7 @@ public class Categoria extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent intent = new Intent(view.getContext(), Listado.class);
+                Intent intent = new Intent(view.getContext(), List.class);
                 Feader atributo = (Feader) apps.getItemAtPosition(position);
                 intent.putExtra("Category", atributo.getCategory());
                 startActivity(intent);
@@ -101,7 +101,7 @@ public class Categoria extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Categoria.this);
+            pDialog = new ProgressDialog(Category.this);
             pDialog.setMessage("Actualizando");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -194,8 +194,8 @@ public class Categoria extends Activity {
                 ex.printStackTrace();
             }
 
-            Feader[] listaCategorias = (Feader[]) base.ListaCategorias();
-            adaptador = new ArrayAdapter<Feader>(Categoria.this,
+            Feader[] listaCategorias = (Feader[]) base.listCategory();
+            adaptador = new ArrayAdapter<Feader>(Category.this,
                     android.R.layout.simple_list_item_1, listaCategorias);
 
             return adaptador;
@@ -216,7 +216,7 @@ public class Categoria extends Activity {
 
         alertDialog.setMessage(message);
 
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton("Aceptar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }

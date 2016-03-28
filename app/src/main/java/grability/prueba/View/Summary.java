@@ -10,22 +10,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import grability.prueba.Reader.DB;
+import grability.prueba.DateBase.DB;
 import grability.prueba.Reader.Feader;
-import grability.prueba.Reader.Tabla;
+import grability.prueba.Other.DynamicTable;
 import grability.prueba.R;
 
-public class Resumen extends Activity {
+public class Summary extends Activity {
 
     DB base;
-    Tabla t;
+    DynamicTable t;
     ArrayList<Feader> f;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resumen);
+        setContentView(R.layout.activity_summary);
 
         if (getResources().getBoolean(R.bool.landscape_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -39,18 +39,18 @@ public class Resumen extends Activity {
 
         Bundle recieve = getIntent().getExtras();
         String url = recieve.getString("url");
-        Bitmap imagen = getIntent().getParcelableExtra("imagen");
-        f = base.informacion(url);
+        Bitmap image = getIntent().getParcelableExtra("image");
+        f = base.information(url);
 
-        TextView titulo = (TextView) findViewById(R.id.titulo);
-        TextView resumen = (TextView) findViewById(R.id.resumen);
+        TextView title = (TextView) findViewById(R.id.title);
+        TextView summary = (TextView) findViewById(R.id.summary);
 
 
-        titulo.setText(f.get(0).getName().toString());
-        resumen.setText(f.get(0).getSummary().toString());
+        title.setText(f.get(0).getName().toString());
+        summary.setText(f.get(0).getSummary().toString());
 
-        ImageView imageView = (ImageView) findViewById(R.id.imagen);
-        imageView.setImageBitmap(redimensionarImagenMaximo(imagen, 500, 500));
+        ImageView imageView = (ImageView) findViewById(R.id.image);
+        imageView.setImageBitmap(redimensionarImagenMaximo(image, 500, 500));
     }
 
     public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth) {

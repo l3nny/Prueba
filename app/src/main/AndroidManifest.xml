@@ -19,12 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.Categoria" />
+        <activity android:name=".View.Category" />
         <activity
-            android:name=".View.Listado"
+            android:name=".View.List"
             android:label="@string/title_activity_listado"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".View.Resumen"></activity>
+        <activity android:name=".View.Summary"></activity>
     </application>
 
 </manifest>

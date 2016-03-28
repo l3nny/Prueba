@@ -10,7 +10,7 @@
     android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:scrollbars="none"
-    tools:context=".View.Listado">
+    tools:context=".View.List">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutTabla"
+                android:id="@+id/layoutTable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -63,7 +63,7 @@
                             android:orientation="vertical">
 
                             <TableLayout
-                                android:id="@+id/tabla"
+                                android:id="@+id/table"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"

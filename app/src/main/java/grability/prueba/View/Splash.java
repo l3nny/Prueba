@@ -16,9 +16,9 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if(getResources().getBoolean(R.bool.landscape_only)){
+        if (getResources().getBoolean(R.bool.landscape_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }else{
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
 
@@ -27,7 +27,7 @@ public class Splash extends Activity {
             @Override
             public void run() {
 
-                startActivity(new Intent(Splash.this, Categoria.class));
+                startActivity(new Intent(Splash.this, Category.class));
                 overridePendingTransition(R.anim.desvanecer1, R.anim.desvanecer2);
                 finish();
             }

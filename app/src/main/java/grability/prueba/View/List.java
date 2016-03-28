@@ -10,18 +10,18 @@ import android.widget.TableLayout;
 import java.util.ArrayList;
 
 import grability.prueba.R;
-import grability.prueba.Reader.DB;
+import grability.prueba.DateBase.DB;
 import grability.prueba.Reader.Feader;
-import grability.prueba.Reader.Tabla;
+import grability.prueba.Other.DynamicTable;
 
-public class Listado extends Activity {
+public class List extends Activity {
     DB base;
-    Tabla tabla;
+    DynamicTable table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listado);
+        setContentView(R.layout.activity_list);
 
         if (getResources().getBoolean(R.bool.landscape_only) == true) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -30,7 +30,7 @@ public class Listado extends Activity {
         }
 
 
-        tabla = new Tabla(this, (TableLayout) findViewById(R.id.tabla));
+        table = new DynamicTable(this, (TableLayout) findViewById(R.id.table));
         base = new DB(this);
         base.open();
 
@@ -65,8 +65,8 @@ public class Listado extends Activity {
                 urls.add(stringList.get(i).getURLimage());
                 count++;
                 if (count == 3) {
-                    tabla.agregarFilaTabla(images, urls);
-                    tabla.agregarFilaTablabo(names);
+                    table.addRowImage(images, urls);
+                    table.addRowName(names);
                     images = new ArrayList<>();
                     urls = new ArrayList<>();
                     names = new ArrayList<>();
@@ -77,8 +77,8 @@ public class Listado extends Activity {
                 }
             }
             if (par == false) {
-                tabla.agregarFilaTabla(images, urls );
-                tabla.agregarFilaTablabo(names);
+                table.addRowImage(images, urls);
+                table.addRowName(names);
             }
 
         } catch (Exception e) {
